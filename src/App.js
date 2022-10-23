@@ -1,13 +1,13 @@
 import './App.css';
 import { Route } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useReducer } from "react"
 
 import Sidebar from "./components/Sidebar"
 import Dashboard from "./components/Dashboard"
 import SaldoList from "./components/SaldoList"
 import Settings from "./components/Settings"
-import AddModal from "./components/AddModal"
 import Modal from "./components/Modal"
+import Login from "./pages/Login"
 
 function App() {
   //moneyflow list
@@ -23,7 +23,7 @@ function App() {
   const [modalCanFinish, setModalCanFinish] = useState(null);
 
   const checkInputValidity = flow => {
-    if(modalName == "" || modalCategories == "" || modalAmount == ""){
+    if(modalName === "" || modalCategories === "" || modalAmount === ""){
       console.log("Can't process! Inputs not filled!");
       setModalCanFinish(false);
     } else {
@@ -56,7 +56,6 @@ function App() {
   const modalNameHandler = (event) => { 
     setModalName(event.target.value) 
     console.log(event.target.value);
-    console.log(event.target.value.length);
     return (event.target.value)
   }
 
@@ -110,11 +109,14 @@ function App() {
           moneyList={moneyList} 
         />
       </Route>
-      <Route exact path="/saldolist">
+      <Route path="/saldolist">
         <SaldoList moneyList={moneyList} />
       </Route>
-      <Route exact path="/settings">
+      <Route path="/settings">
         <Settings />
+      </Route>
+      <Route path="/login">
+        <Login />
       </Route>
       {/* <Route exact path="*">
         <Redirect to="/" />

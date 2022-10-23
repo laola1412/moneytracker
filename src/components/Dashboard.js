@@ -1,6 +1,41 @@
 import FlowList from "./FlowList"
+import { useReducer } from "react"
+
+
+
+
 
 export default function Dashboard(props) {
+   const [state, dispatch] = useReducer(changeAge, {age: 22})
+
+   function changeAge(state, action) {
+      switch (action.type) {
+         case "increment_age":
+            return { age: state.age + 1}
+         case "decrement_age":
+            return { age: state.age - 1}
+         case "decrement_age5":
+            return { age: state.age + 5}
+         case "increment_age5":
+            return { age: state.age - 5}
+         default:
+            break;
+      }
+   }
+
+   const handleClick1 = () => {
+      dispatch({type: "increment_age"})
+   }
+   const handleClick2 = () => {
+      dispatch({type: "decrement_age"})
+   }
+   const handleClick3 = () => {
+      dispatch({type: "increment_age5"})
+   }
+   const handleClick4 = () => {
+      dispatch({type: "decrement_age5"})
+   }
+
    let sum = 0
    if(props.moneyList != null) {
     props.moneyList.forEach((x) => sum += x.flow)
@@ -55,6 +90,16 @@ export default function Dashboard(props) {
                </div>
             </div>
          </div>
+      </div>
+      <div className="my-6">
+            <p>{state.age}</p>
+            <div>
+               <button onClick={handleClick1} className="flex items-center h-10 px-4 space-x-2 font-medium text-white bg-orange-500 rounded-lg"> +1 </button>
+               <button onClick={handleClick2} className="flex items-center h-10 px-4 space-x-2 font-medium text-white bg-orange-500 rounded-lg"> -1 </button>
+               <button onClick={handleClick4} className="flex items-center h-10 px-4 space-x-2 font-medium text-white bg-orange-500 rounded-lg"> +5 </button>
+               <button onClick={handleClick3} className="flex items-center h-10 px-4 space-x-2 font-medium text-white bg-orange-500 rounded-lg"> -5 </button>
+            </div>
+            
       </div>
       <FlowList flowList={props.moneyList} />
    </section>

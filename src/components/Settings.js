@@ -1,5 +1,3 @@
-import { useState } from "react"
-
 export default function SaldoList() {
   return (
    <section className="container px-4 mx-auto text-gray-800">
